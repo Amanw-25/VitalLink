@@ -14,9 +14,8 @@
   }
 
   .btn {
-    @apply bg-primaryColor py-[-15px] px-[35px] rounded-[50px] text-white font-[600] mt-[38px];
-  }
-
+        @apply bg-primaryColor py-[15px] px-[35px] rounded-[50px] text-white font-[600] mt-[38px];
+    }
   .heading {
     @apply text-[44px] leading-[54px] font-[700] text-headingColor;
   }
@@ -27,6 +26,11 @@
 
   .header{
     @apply bg-[url("./assets/images/mask.png")] bg-no-repeat bg-center bg-cover w-full h-[100px] leading-[100px];
+  }
+
+
+  .hero_section{
+    @apply bg-[url("./assets/images/hero-bg.png")] bg-no-repeat bg-center bg-cover;
   }
 }
 
