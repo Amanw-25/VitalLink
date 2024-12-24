@@ -18,6 +18,8 @@ import { BsArrowRight } from "react-icons/bs";
 import About from "../components/About/About";
 import ServiceList from "../components/Services/ServiceList";
 import DoctorList from "../components/Doctors/DoctorList";
+import FaqList from "../components/Faq/FaqList";
+import Testimonal from "../components/Testimonal/Testimonal";
 
 export const Home = () => {
   return (
@@ -294,6 +296,44 @@ export const Home = () => {
 
             <DoctorList />
           </div>
+        </section>
+
+
+        {/* ========= FAQ SECTION ======== */}
+        <section>
+          <div className="container">
+            <div className="flex justify-between gap-[50px] lg:gap-0">
+              <div className="w-1/2 hidden md:block">
+                <img src={faqImg} alt="" />
+              </div>
+
+              <div className="w-full md:w-1/2">
+                <h2 className="heading">
+                  Most Questions by beloved <br /> Patients
+                </h2>
+                <FaqList />
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        {/* =======Testimonal=========*/}
+          
+        <section>
+        <div className="container">
+            <div className="xl:w-[470px] mx-auto">
+              <h2 className="heading text-center">What our Patients Says</h2>
+              <p className="text__para text-center">
+                World-Class Care For Everyone. Our Health System Offers
+                Unmatched, Expert Health Care.
+              </p>
+            </div>
+
+          </div>
+
+          <Testimonal/>
+
         </section>
       </>
     </>
