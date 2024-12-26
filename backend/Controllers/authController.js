@@ -38,7 +38,7 @@ export const register = async (req, res) => {
       user,
     });
   } catch (error) {
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ message:error.message,error: "Internal server error" });
   }
 };
 
@@ -84,3 +84,4 @@ export const login = async (req, res) => {
     });
   }
 };
+

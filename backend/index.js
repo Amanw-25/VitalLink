@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import authRoutes from "./Routes/auth.js";
 import userRoutes from "./Routes/user.js";
+import doctorRoutes from "./Routes/doctor.js";
 
 dotenv.config();
 const corsOptions = { origin: process.env.CORS_ORIGIN };
@@ -15,6 +16,7 @@ app.use(cookieParser());
 app.use(cors(corsOptions));
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/user", userRoutes);
+app.use("/api/v1/doctor", doctorRoutes);
 
 const PORT = process.env.PORT || 5000;
 
