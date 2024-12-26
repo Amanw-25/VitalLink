@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import DoctorModel from './DoctorSchema';
 
 const DoctorSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
