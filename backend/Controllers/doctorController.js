@@ -1,85 +1,111 @@
-import Doctor from '../models/DoctorSchema.js';
+import Doctor from "../models/DoctorSchema.js"; // Import the Doctor model
 
-export const updateUser = async (req, res) => {
+export const updateDoctor = async (req, res) => {
+  // Rename the function to updateDoctor
   const id = req.params.id;
 
   try {
-    const updatedUser = await Doctor.findByIdAndUpdate(id, { $set: req.body }, { new: true });
+    const updatedDoctor = await Doctor.findByIdAndUpdate(
+      // Use the Doctor model
+      id,
+      { $set: req.body },
+      { new: true }
+    );
 
     res.status(200).json({
       success: true,
-      message: "User updated successfully",
-      data: updatedUser
+      message: "Successfully updated",
+      data: updatedDoctor, // Use updatedDoctor
     });
-
-  }
-  catch (error) {
-    res.status(500).json({ message: error.message, error: "Internal server error" });
-  }
-};
-
-export const deleteUser = async (req, res) => {
-  const id = req.params.id;
-
-  try {
-    const updatedUser = await Doctor.findByIdAndDelete(id);
-
-    res.status(200).json({
-      success: true,
-      message: "User Deleted successfully",
-    });
-
-  }
-  catch (error) {
+  } catch (error) {
     res.status(500).json({
-      message: error.message,
-      error: "Internal server error"
+      success: false,
+      message: "Failed to update!",
+      data: error,
     });
   }
 };
 
-export const getSingleId = async (req, res) => {
+export const deleteDoctor = async (req, res) => {
+  // Rename the function to deleteDoctor
   const id = req.params.id;
 
   try {
-    const user = await Doctor.findById(id).select("-password");
+    await Doctor.findByIdAndDelete(id); // Use the Doctor model
 
     res.status(200).json({
       success: true,
-      message: "User fetched successfully",
-      data: user
+      message: "Successfully deleted",
     });
-
-  }
-  catch (error) {
-    res.status(500).json({ message: error.message, error: "Internal server error" });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Failed to delete!",
+      data: error,
+    });
   }
 };
 
-export const getAllUser = async (req, res) => {
+export const getSingleDoctor = async (req, res) => {
+  // Rename the function to getSingleDoctor
+  const id = req.params.id;
+
+  try {
+    const doctor = await Doctor.findById(id)
+      .populate("reviews")
+      .select("-password"); // Use the Doctor model
+
+    if (!doctor) {
+      return res.status(404).json({
+        success: false,
+        message: "No Doctor Found!",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Doctor Found",
+      data: doctor, // Use doctor
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Failed to retrieve doctor!",
+      data: error,
+    });
+  }
+};
+
+export const getAllDoctor = async (req, res) => {
+  // Rename the function to getAllDoctors
   try {
     const { query } = req.query;
     let doctors;
 
     if (query) {
       doctors = await Doctor.find({
-        isApproved: true,
+        isApproved: "approved",
         $or: [
-          { name: { $regex: query, $options: 'i' } },
-          { specialization: { $regex: query, $options: 'i' } },
-        ]
+          { name: { $regex: query, $options: "i" } },
+          { specialization: { $regex: query, $options: "i" } },
+        ],
       }).select("-password");
     } else {
-      doctors = await Doctor.find({ isApproved: true }).select("-password");
+      doctors = await Doctor.find({ isApproved: "approved" }).populate("reviews").select(
+        "-password"
+      ); // Use the Doctor model
     }
 
     res.status(200).json({
       success: true,
-      message: "Users fetched successfully",
-      data: doctors,
+      message: "Doctors Found",
+      data: doctors, // Use doctors
     });
-
   } catch (error) {
-    res.status(500).json({ message: error.message, error: "Internal server error" });
+    res.status(500).json({
+      success: false,
+      message: "Failed to retrieve doctors!",
+      data: error.message,
+    });
   }
 };
