@@ -64,7 +64,10 @@ export const login = async (req, res) => {
     const isMatch = await bcrypt.compare(req.body.password, user.password);
 
     if (!isMatch) {
-      return res.status(400).json({ error: "Invalid credentials" });
+      return res.status(400).json({
+        message: "Email or Password is incorrect",
+        error: "Invalid credentials" 
+      });
     }
 
     const token = genrateToken(user);

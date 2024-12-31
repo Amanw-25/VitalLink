@@ -13,7 +13,6 @@ import { AuthContextProvider } from './context/AuthContext';
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
-      {/* Wrap your application with AuthContextProvider */}
       <AuthContextProvider>
         <ToastContainer
           theme='dark'
