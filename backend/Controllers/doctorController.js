@@ -1,4 +1,5 @@
 import Doctor from "../models/DoctorSchema.js"; // Import the Doctor model
+import Booking from "../models/BookingSchema.js";
 
 export const updateDoctor = async (req, res) => {
   // Rename the function to updateDoctor
@@ -109,3 +110,33 @@ export const getAllDoctor = async (req, res) => {
     });
   }
 };
+
+export const doctorProfile = async (req, res) => {
+  const doctorId = req.user._id;
+  try {
+    const doctor = await Doctor.findById(doctorId).select("-password");
+
+    if (!doctor) {
+      return res.status(400).json({
+        success: false,
+        message: "User not found"
+      });
+    }
+
+    const { password, ...rest } = doctor_doc;
+    const aappointments = await Booking.find({ doctor: doctorId }).populate("patient");
+
+
+    res.status(200).json({
+      success: true,
+      message: "Profile fetched successfully",
+      data: user,
+
+    })
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+      error: "Internal server error"
+    });
+  }
+}

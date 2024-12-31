@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { BASE_URL } from "../config";
 import { toast } from "react-toastify";
 import { AuthContext } from '../context/AuthContext.jsx';
+import HashLoader from "react-spinners/HashLoader.js";
 
 const Login = () => {
 
@@ -43,12 +44,13 @@ const Login = () => {
       dispatch({
         type: 'LOGIN_SUCCESS',
         payload: {
-          user: result.data,
+          user: result.user,
           token: result.token,
-          role: result.role
+          role: result.user.role
         }
 
       });
+      console.log(result);
       setLoading(false);
       toast.success(result.message);
       navigate("/");
@@ -92,7 +94,7 @@ const Login = () => {
               className="w-full bg-primaryColor text-white text-[18px] leading-[30px] rounded-lg px-4 py-3"
               onClick={submitHandler}
             >
-              Login
+              {loading ? <HashLoader size={25} color='#fff'/> : 'Login'}
             </button>
           </div>
           <p className="mt-5 text-textColor text-center">

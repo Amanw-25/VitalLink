@@ -10,13 +10,17 @@ import doctorRoutes from "./Routes/doctor.js";
 import reviewRoutes from "./Routes/review.js";
 
 dotenv.config();
-const corsOptions = { origin: process.env.CORS_ORIGIN };
+// const corsOptions = { origin: process.env.CORS_ORIGIN };
 
 const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors(corsOptions));
+app.use(cors({
+  origin: 'http://localhost:5173',
+  methods: 'GET, POST, PUT, DELETE',
+  allowedHeaders: 'Content-Type, Authorization',
+}));
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/doctors", doctorRoutes);
