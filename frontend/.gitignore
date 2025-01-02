@@ -1,4 +1,11 @@
-# Logs
+# Node modules
+node_modules/
+
+# Build output
+build/
+dist/
+
+# Log files
 logs
 *.log
 npm-debug.log*
@@ -7,20 +14,47 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# Local environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# MacOS and Windows system files
+.DS_Store
+Thumbs.db
 
 # Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
+.vscode/
+.idea/
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
 
-.env
+# React specific (CRA-generated)
+/.cache
+/react-scripts
+
+# Expo related (if you're using Expo for React Native)
+.expo/
+.expo-shared/
+
+# Temporary files
+*.local
+
+# Package lock files (optional, can be kept if needed)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Next.js build output (if you're using Next.js)
+.next/
+
+# Storybook (if you use it for UI components)
+storybook-static/
+
+# Firebase or other specific configurations (if needed)
+.firebase/

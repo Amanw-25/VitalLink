@@ -8,7 +8,7 @@ const useFetchData = (url) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true); // Set loading to true before the request
+      setLoading(true); 
       try {
         const res = await fetch(url, {
           headers: {
@@ -16,7 +16,7 @@ const useFetchData = (url) => {
           },
         });
 
-        console.log(token);
+        // console.log(token);
         if (!res.ok) {
           const result = await res.json();
           throw new Error(result.message || "Something went wrong");
@@ -27,7 +27,7 @@ const useFetchData = (url) => {
       } catch (error) {
         setError(error.message || "An error occurred");
       } finally {
-        setLoading(false); // This will always be called after fetch finishes
+        setLoading(false);
       }
     };
 

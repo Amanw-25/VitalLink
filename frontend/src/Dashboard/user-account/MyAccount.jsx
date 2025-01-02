@@ -13,6 +13,7 @@ const MyAccount = () => {
   const { data: userData, loading, error } = userGetProfile(`${BASE_URL}/user/profile/me`);
 
   console.log(userData);
+  
 
   const handleLogout = () => {
     dispatch({ type: 'LOGOUT' });
@@ -32,13 +33,13 @@ const MyAccount = () => {
           <div className="text-center mt-4">
             {/* Dynamic profile data */}
             <h3 className="text-[18px] leading-[30px] text-headingColor font-bold">
-              {userData ? userData.name : 'Loading...'}
+              {userData ? userData.data.name : 'Loading...'}
             </h3>
             <p className="text-textColor text-[15px] leading-6 font-medium">
-              {userData ? userData.email : 'Loading...'}
+              {userData ? userData.data.email : 'Loading...'}
             </p>
             <p className="text-textColor text-[15px] leading-6 font-medium">
-              Blood Type: <span className="text-primaryColor">{userData ? userData.bloodType : 'Loading...'}</span>
+              Blood Type: <span className="text-primaryColor">{userData ? userData.data.bloodType : 'Loading...'}</span>
             </p>
           </div>
 
