@@ -1,11 +1,18 @@
 import User from "../models/UserSchema.js";
 import Booking from "../models/BookingSchema.js";
 import Doctor from "../models/DoctorSchema.js";
+import bcrypt from "bcrypt";
 
 export const updateUser = async (req, res) => {
   const id = req.params.id;
+  const { password } = req.body;
 
   try {
+    if (password) {
+      const salt = await bcrypt.genSalt(10);
+      req.body.password = await bcrypt.hash(password, salt);
+    }
+
     const updatedUser = await User.findByIdAndUpdate(id, { $set: req.body }, { new: true });
 
     res.status(200).json({
@@ -14,11 +21,11 @@ export const updateUser = async (req, res) => {
       data: updatedUser
     });
 
-  }
-  catch (error) {
+  } catch (error) {
     res.status(500).json({ message: error.message, error: "Internal server error" });
   }
 };
+
 
 export const deleteUser = async (req, res) => {
   const id = req.params.id;
@@ -102,7 +109,7 @@ export const getMyAppointments = async (req, res) => {
   try {
     // step-1 Reterive appointments from booking 
 
-    const booking = await Booking.find({ user: req.user._id }).populate("doctor");
+    const booking = await Booking.find({ user: req.userId }).populate("doctor");
 
     // extract doctor id from appointments booking
     const doctorIds = booking.map((item) => item.doctor._id);

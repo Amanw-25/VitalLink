@@ -40,19 +40,21 @@ export const restrict = (roles) => async (req, res, next) => {
   let user;
 
   const patient = await User.findById(userId);
+
   const doctor = await Doctor.findById(userId);
 
   if (patient) {
     user = patient;
   }
-
   if (doctor) {
     user = doctor;
   }
 
-  if (!roles.includes(user.role)) { // if(user.role!=roles) 
-    return res.status(403).json({ message: "You are not authorized to access this route" });
+  if (!roles.includes(user.role)) {
+    return res
+      .status(401)
+      .json({ success: false, message: "You're not authorized" });
   }
 
-  next(); 
-}
+  next();
+};

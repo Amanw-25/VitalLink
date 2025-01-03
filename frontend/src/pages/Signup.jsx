@@ -137,7 +137,7 @@ const Signup = () => {
                     onChange={handleInputChange}
                     className="text-textColor font-semibold text-[15px] leading-7 px-4 py-3 m-3 focus:outline-none"
                   >
-                    <option value=""></option>
+                    <option value="" disabled selected>Select your Gender</option>
                     <option value="male">Male</option>
                     <option value="female">Female</option>
                   </select>
