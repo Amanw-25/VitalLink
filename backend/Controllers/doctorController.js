@@ -112,7 +112,7 @@ export const getAllDoctor = async (req, res) => {
 };
 
 export const doctorProfile = async (req, res) => {
-  const doctorId = req.user._id;
+  const doctorId = req.userId;
   try {
     const doctor = await Doctor.findById(doctorId).select("-password");
 
@@ -123,14 +123,14 @@ export const doctorProfile = async (req, res) => {
       });
     }
 
-    const { password, ...rest } = doctor_doc;
-    const aappointments = await Booking.find({ doctor: doctorId }).populate("patient");
+    const { password, ...rest } =  doctorId;
+    const appointments = await Booking.find({ doctor: doctorId }).populate("patient");
 
 
     res.status(200).json({
       success: true,
       message: "Profile fetched successfully",
-      data: user,
+      data: doctor,appointments
 
     })
   } catch (error) {

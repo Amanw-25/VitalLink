@@ -29,7 +29,7 @@ export const register = async (req, res) => {
     if (role === "patient") {
       user = await User.create({ email, password: hashedPassword, name, role, gender, photo });
     } else if (role === "doctor") {
-      user = await Doctor.create({ email, password: hashedPassword, name });
+      user = await Doctor.create({ email, password: hashedPassword, name ,role , gender, photo });
     }
 
     await user.save();
