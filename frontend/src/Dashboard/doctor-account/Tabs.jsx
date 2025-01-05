@@ -43,7 +43,7 @@ const Tabs = ({ tab, setTab }) => {
             tab === "settings" ? "bg-indigo-100 text-primaryColor shadow-md" : "bg-transparent text-headingColor hover:bg-indigo-50"
           }`}
         >
-          Settings
+          Profile
         </button>
 
         <div className="mt-6 w-full">

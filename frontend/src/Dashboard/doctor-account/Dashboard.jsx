@@ -4,6 +4,9 @@ import useFetchData from '../../hooks/useFetchData';
 import Tabs from './Tabs';
 import Error from '../../Error/Error';
 import Loading from '../../Loader/Loading';
+import startIcon from '../../assets/images/Star.png';
+import DoctorAbout from '../../pages/Doctors/DoctorAbout';
+import Profile from './Profile';
 
 const Dashboard = () => {
   const { data: userData, loading, error } = useFetchData(`${BASE_URL}/doctors/profile/me`);
@@ -37,10 +40,59 @@ const Dashboard = () => {
                   </svg>
                   <div className="flex flex-col">
                     <span className="font-semibold text-lg">Your approval is pending <p className="text-xs text-gray-600 mt-1">Please wait for the admin to approve your profile before proceeding further.</p></span>
-                    
+
                   </div>
                 </div>
               )}
+
+              <div className="mt-8">
+                {tab === "overview" && <div>
+
+                  <div className="flex items-center gap-4 mb-10">
+                    <figure>
+                      <img src={userData.data?.photo} alt="" className="h-[150px] w-[150px] rounded-3xl" />
+                    </figure>
+
+                    <div>
+                      <span className="bg-[#CCF0F3] text-irisBlueColor py-1 px-4 lg:py-2 lg:px-6 rounded text-[12px] leading-4 lg:text-[16px] lg:leading-6 font-semibold">
+                        Surgeon
+                      </span>
+
+                      <h3 className="text-[24px] lg:text-[32px] leading-10 mt-6 font-bold text-[#1A1A1A]">
+                        {userData.data?.name}
+                      </h3>
+
+                      <div className="flex items-center gap-4 mt-4">
+                        <span className="flex items-center text-[#1A1A1A] text-[14px] font-semibold lg:text-[16px]">
+                          <img src={startIcon} alt="" className="w-4 h-4 mr-1" />
+                          4.5
+                        </span>
+                        <span className="text-[#1A1A1A] text-[14px] font-semibold lg:text-[16px]">
+                          (233)
+                        </span>
+                      </div>
+
+                      <p className="text_para font-normal text-[#1A1A1A] text-[14px] leading-6 mt-4">
+                        Doctor Bio
+                      </p>
+                    </div>
+                  </div>
+
+                  <DoctorAbout
+                    name={userData.data?.name}
+                    about={userData.data?.about}
+                    qualfication={userData.data?.qualfication}
+                    experience={userData.data?.experience}
+                  />
+
+
+
+
+                </div>}
+                {tab === "appointments" && <div>Appointments</div>}
+                {tab === "settings" && <Profile/>}
+              </div>
+
             </div>
           </div>
         )}
