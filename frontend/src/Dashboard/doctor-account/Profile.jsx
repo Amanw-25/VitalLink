@@ -1,53 +1,67 @@
-import React, { useState } from 'react';
-import { AiOutlineDelete } from 'react-icons/ai'; // Import the delete icon
-import { FaCameraRetro } from 'react-icons/fa'; // Import photo upload icon
-import uploadImagetoCloudinary from '../../utils/uploadCloudinary'; // Import the image upload function
-import { BASE_URL,token } from '../../config';
-import {toast} from 'react-toastify';
+import React, { useState ,useEffect} from 'react';
+import { AiOutlineDelete } from 'react-icons/ai';
+import { FaCameraRetro } from 'react-icons/fa';
+import uploadImagetoCloudinary from '../../utils/uploadCloudinary';
+import { BASE_URL, token } from '../../config';
+import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
-const Profile = ({doctorData}) => {
-    const [selectedFile, setSelectedFile] = useState(null);
+const Profile = ({ doctorData }) => {
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [loading, setLoading] = useState(false);
   
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-    phone: '',
-    bio: '',
-    gender: '',
-    specialization: '',
-    ticketPrice: '100', // default range value
-    about: '',
-    qualification: [{ startingDate: '', endingDate: '', degree: '', institution: '' }],
-    experience: [{ startDate: '', endDate: '', position: '', hospital: '' }],
-    timeSlots: [{ day: '', startTime: '', endTime: '' }],
-    photo: '',
+  // Initialize form data from localStorage or default values
+  const [formData, setFormData] = useState(() => {
+    const savedData = localStorage.getItem('user');
+    return savedData ? JSON.parse(savedData) : {
+      name: '',
+      email: '',
+      password: '',
+      phone: '',
+      bio: '',
+      gender: '',
+      specialization: '',
+      ticketPrice: '100',
+      about: '',
+      qualifications: [{ startingDate: '', endingDate: '', degree: '', institution: '' }],
+      experiences: [{ startDate: '', endDate: '', position: '', hospital: '' }],
+      timeSlots: [{ day: '', startTime: '', endTime: '' }],
+      photo: '',
+    };
   });
-
-  const[laoding,setLoading] = useState(false);
-  const doctorData1 = JSON.parse(localStorage.getItem('user')); // Assuming 'ser' is the key
+  const doctorData1 = JSON.parse(localStorage.getItem('user'));
   const doctorId = doctorData ? doctorData._id : null;
-
-console.log(doctorId);
-
-
   const navigate = useNavigate();
+
+    // Save to localStorage whenever formData changes
+    useEffect(() => {
+      localStorage.setItem('user', JSON.stringify(formData));
+    }, [formData]);
+  
+    // Load existing doctor data if available
+    useEffect(() => {
+      if (doctorData) {
+        setFormData(prevData => ({
+          ...prevData,
+          ...doctorData
+        }));
+      }
+    }, [doctorData]);
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleQualificationChange = (e, index) => {
-    const updatedQualifications = [...formData.qualification];
+    const updatedQualifications = [...formData.qualifications];
     updatedQualifications[index][e.target.name] = e.target.value;
-    setFormData({ ...formData, qualification: updatedQualifications });
+    setFormData({ ...formData, qualifications: updatedQualifications });
   };
 
   const handleExperienceChange = (e, index) => {
-    const updatedExperience = [...formData.experience];
-    updatedExperience[index][e.target.name] = e.target.value;
-    setFormData({ ...formData, experience: updatedExperience });
+    const updatedExperiences = [...formData.experiences];
+    updatedExperiences[index][e.target.name] = e.target.value;
+    setFormData({ ...formData, experiences: updatedExperiences });
   };
 
   const handleTimeSlotChange = (e, index) => {
@@ -58,14 +72,14 @@ console.log(doctorId);
 
   const handleDeleteQualification = (e, index) => {
     e.preventDefault();
-    const updatedQualifications = formData.qualification.filter((_, i) => i !== index);
-    setFormData({ ...formData, qualification: updatedQualifications });
+    const updatedQualifications = formData.qualifications.filter((_, i) => i !== index);
+    setFormData({ ...formData, qualifications: updatedQualifications });
   };
 
   const handleDeleteExperience = (e, index) => {
     e.preventDefault();
-    const updatedExperience = formData.experience.filter((_, i) => i !== index);
-    setFormData({ ...formData, experience: updatedExperience });
+    const updatedExperiences = formData.experiences.filter((_, i) => i !== index);
+    setFormData({ ...formData, experiences: updatedExperiences });
   };
 
   const handleDeleteTimeSlot = (e, index) => {
@@ -78,8 +92,8 @@ console.log(doctorId);
     e.preventDefault();
     setFormData({
       ...formData,
-      qualification: [
-        ...formData.qualification,
+      qualifications: [
+        ...formData.qualifications,
         { startingDate: '', endingDate: '', degree: '', institution: '' },
       ],
     });
@@ -89,8 +103,8 @@ console.log(doctorId);
     e.preventDefault();
     setFormData({
       ...formData,
-      experience: [
-        ...formData.experience,
+      experiences: [
+        ...formData.experiences,
         { startDate: '', endDate: '', position: '', hospital: '' },
       ],
     });
@@ -104,7 +118,7 @@ console.log(doctorId);
     });
   };
 
-  const handleFileChange = async(e) => {
+  const handleFileChange = async (e) => {
     const file = e.target.files[0];
     const data = await uploadImagetoCloudinary(file);
 
@@ -112,7 +126,7 @@ console.log(doctorId);
     setFormData({ ...formData, photo: data.url });
   };
 
-  const updateProfileHandler = async(e) => {
+  const updateProfileHandler = async (e) => {
     e.preventDefault();
     setLoading(true);
 
@@ -173,6 +187,21 @@ console.log(doctorId);
             value={formData.email}
             onChange={handleInputChange}
             placeholder="Enter your email"
+            className="form_input"
+          />
+        </div>
+
+        {/* Password */}
+        <div className="mb-5">
+          <p className="form__label">
+            Password<span className="text-red-500">*</span>
+          </p>
+          <input
+            type="password"
+            name="password"
+            value={formData.password}
+            onChange={handleInputChange}
+            placeholder="Enter your password"
             className="form_input"
           />
         </div>
@@ -267,10 +296,10 @@ console.log(doctorId);
           </div>
         </div>
 
-        {/* Qualification Section */}
+        {/* Qualifications Section */}
         <div className="mb-5">
-          <p className="form__label">Qualification*</p>
-          {formData.qualification.map((item, index) => (
+          <p className="form__label">Qualifications*</p>
+          {formData.qualifications.map((item, index) => (
             <div key={index}>
               <div className="grid grid-cols-2 gap-4">
                 <div>
@@ -317,7 +346,7 @@ console.log(doctorId);
                 </div>
               </div>
 
-              {/* Delete Button for Qualification */}
+              {/* Delete Button for Qualifications */}
               <button
                 className="bg-red-600 rounded-full text-white text-[18px] font-semibold px-4 py-1 mt-5 mb-30 cursor-pointer"
                 onClick={(e) => handleDeleteQualification(e, index)}
@@ -334,10 +363,10 @@ console.log(doctorId);
           </button>
         </div>
 
-        {/* Experience Section */}
+        {/* Experiences Section */}
         <div className="mb-5">
-          <p className="form__label">Experience*</p>
-          {formData.experience.map((item, index) => (
+          <p className="form__label">Experiences*</p>
+          {formData.experiences.map((item, index) => (
             <div key={index}>
               <div className="grid grid-cols-2 gap-4">
                 <div>
@@ -401,7 +430,7 @@ console.log(doctorId);
           </button>
         </div>
 
-        {/* Time Slot Section */}
+        {/* Time Slots Section */}
         <div className="mb-5">
           <p className="form__label">Time Slots*</p>
           {formData.timeSlots.map((item, index) => (
@@ -483,7 +512,7 @@ console.log(doctorId);
         <div className="mb-5">
           <p className="form__label">Upload Photo</p>
           <label htmlFor="photo-upload" className="cursor-pointer text-blue-600">
-            <FaCameraRetro size={40} style={{color:"black"}}/>
+            <FaCameraRetro size={40} style={{ color: "black" }} />
           </label>
           <input
             type="file"

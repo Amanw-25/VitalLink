@@ -1,11 +1,19 @@
 import Doctor from "../models/DoctorSchema.js"; // Import the Doctor model
 import Booking from "../models/BookingSchema.js";
+import bcrypt from "bcrypt";
+
 
 export const updateDoctor = async (req, res) => {
   // Rename the function to updateDoctor
   const id = req.params.id;
+  const { password } = req.body;
 
   try {
+    if (password) {
+      const salt = await bcrypt.genSalt(10);
+      req.body.password = await bcrypt.hash(password, salt);
+    }
+
     const updatedDoctor = await Doctor.findByIdAndUpdate(
       // Use the Doctor model
       id,
@@ -21,8 +29,8 @@ export const updateDoctor = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: "Failed to update!",
-      data: error,
+      message: "Failed to update!"+error.message,
+      data: error.message,
     });
   }
 };
@@ -123,14 +131,14 @@ export const doctorProfile = async (req, res) => {
       });
     }
 
-    const { password, ...rest } =  doctorId;
+    const { password, ...rest } = doctorId;
     const appointments = await Booking.find({ doctor: doctorId }).populate("patient");
 
 
     res.status(200).json({
       success: true,
       message: "Profile fetched successfully",
-      data: doctor,appointments
+      data: doctor, appointments
 
     })
   } catch (error) {
