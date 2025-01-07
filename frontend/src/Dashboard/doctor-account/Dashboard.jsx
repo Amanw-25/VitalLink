@@ -11,12 +11,16 @@ import Profile from './Profile';
 const Dashboard = () => {
   const { data: userData, loading, error } = useFetchData(`${BASE_URL}/doctors/profile/me`);
   const [tab, setTab] = useState("overview");
+  // console.log(userData.data?.name);
+
 
   return (
     <section>
       <div className="max-w-[1170px] px-5 mx-auto">
         {loading && !error && <Loading />}
         {error && !loading && <Error errorMessage={error} />}
+
+
 
         {!loading && !error && userData && (
           <div className="grid lg:grid-cols-3 gap-[30px] lg:gap-[70px]">
@@ -50,12 +54,12 @@ const Dashboard = () => {
 
                   <div className="flex items-center gap-4 mb-10">
                     <figure>
-                      <img src={userData.data?.photo} alt="" className="h-[150px] w-[150px] rounded-3xl" />
+                      <img src={userData.data?.photo} alt="" className="h-[200px] w-[200px] rounded-3xl" />
                     </figure>
 
                     <div>
-                      <span className="bg-[#CCF0F3] text-irisBlueColor py-1 px-4 lg:py-2 lg:px-6 rounded text-[12px] leading-4 lg:text-[16px] lg:leading-6 font-semibold">
-                        Surgeon
+                      <span className="bg-[#CCF0F3] text-irisBlueColor py-1 px-4 lg:py-2 lg:px-6 rounded text-[12px] leading-4 lg:text-[16px] lg:leading-6 font-semibold ">
+                        {userData.data?.specialization}
                       </span>
 
                       <h3 className="text-[24px] lg:text-[32px] leading-10 mt-6 font-bold text-[#1A1A1A]">
@@ -73,7 +77,7 @@ const Dashboard = () => {
                       </div>
 
                       <p className="text_para font-normal text-[#1A1A1A] text-[14px] leading-6 mt-4">
-                        Doctor Bio
+                        {userData.data?.bio}
                       </p>
                     </div>
                   </div>
@@ -81,16 +85,12 @@ const Dashboard = () => {
                   <DoctorAbout
                     name={userData.data?.name}
                     about={userData.data?.about}
-                    qualfication={userData.data?.qualfication}
-                    experience={userData.data?.experience}
+                    qualification={userData.data?.qualifications}
+                    experience={userData.data?.experiences}
                   />
-
-
-
-
                 </div>}
                 {tab === "appointments" && <div>Appointments</div>}
-                {tab === "settings" && <Profile/>}
+                {tab === "settings" && <Profile />}
               </div>
 
             </div>
