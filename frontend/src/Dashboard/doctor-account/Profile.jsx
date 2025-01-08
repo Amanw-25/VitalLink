@@ -1,15 +1,18 @@
-import React, { useState ,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { AiOutlineDelete } from 'react-icons/ai';
 import { FaCameraRetro } from 'react-icons/fa';
 import uploadImagetoCloudinary from '../../utils/uploadCloudinary';
 import { BASE_URL, token } from '../../config';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import HashLoader from "react-spinners/HashLoader";
+
 
 const Profile = ({ doctorData }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [loading, setLoading] = useState(false);
-  
+  const [imgloading, imgsetLoading] = useState(false);
+
   // Initialize form data from localStorage or default values
   const [formData, setFormData] = useState(() => {
     const savedData = localStorage.getItem('user');
@@ -33,20 +36,20 @@ const Profile = ({ doctorData }) => {
   const doctorId = doctorData ? doctorData._id : null;
   const navigate = useNavigate();
 
-    // Save to localStorage whenever formData changes
-    useEffect(() => {
-      localStorage.setItem('user', JSON.stringify(formData));
-    }, [formData]);
-  
-    // Load existing doctor data if available
-    useEffect(() => {
-      if (doctorData) {
-        setFormData(prevData => ({
-          ...prevData,
-          ...doctorData
-        }));
-      }
-    }, [doctorData]);
+  // Save to localStorage whenever formData changes
+  useEffect(() => {
+    localStorage.setItem('user', JSON.stringify(formData));
+  }, [formData]);
+
+  // Load existing doctor data if available
+  useEffect(() => {
+    if (doctorData) {
+      setFormData(prevData => ({
+        ...prevData,
+        ...doctorData
+      }));
+    }
+  }, [doctorData]);
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -119,11 +122,21 @@ const Profile = ({ doctorData }) => {
   };
 
   const handleFileChange = async (e) => {
-    const file = e.target.files[0];
-    const data = await uploadImagetoCloudinary(file);
+    imgsetLoading(true);
+    try {
+      const file = e.target.files[0];
+      const data = await uploadImagetoCloudinary(file);
 
-    setSelectedFile(data.url);
-    setFormData({ ...formData, photo: data.url });
+      setSelectedFile(data.url);
+      setFormData({ ...formData, photo: data.url });
+    }
+    catch (error) {
+      console.log(error);
+      toast.error("Failed to upload image");
+    }
+    finally {
+      imgsetLoading(false);
+    }
   };
 
   const updateProfileHandler = async (e) => {
@@ -510,10 +523,21 @@ const Profile = ({ doctorData }) => {
 
         {/* Upload Photo Icon */}
         <div className="mb-5">
-          <p className="form__label">Upload Photo</p>
-          <label htmlFor="photo-upload" className="cursor-pointer text-blue-600">
+
+          <label htmlFor="photo-upload" className="cursor-pointer flex items-center gap-2 text-blue-600">
             <FaCameraRetro size={40} style={{ color: "black" }} />
+            <p className="form__label">
+              {imgloading ? (
+                <span className="flex items-center gap-2">
+                  <HashLoader size={20} color="black" />
+                  <span>Uploading...</span>
+                </span>
+              ) : (
+                "Upload Photo"
+              )}
+            </p>
           </label>
+
           <input
             type="file"
             id="photo-upload"
@@ -535,7 +559,13 @@ const Profile = ({ doctorData }) => {
             className="px-6 py-2 bg-primaryColor text-white font-semibold rounded-md"
             onClick={updateProfileHandler}
           >
-            Save Profile
+            {loading ? (
+              <div className="flex items-center gap-2">
+                <HashLoader size={40} color="Black" />
+                <span>Saving ...</span>
+              </div>
+            ) : ("Save Profile")}
+            {/* Save Profile */}
           </button>
         </div>
       </form>

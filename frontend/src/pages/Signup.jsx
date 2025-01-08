@@ -13,6 +13,7 @@ const Signup = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewURL, setPreviewURL] = useState("");
   const [loading, setLoading] = useState(false);
+  const [imgloading, imgsetLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -29,12 +30,22 @@ const Signup = () => {
   };
 
   const handleFileInputChange = async (event) => {
-    const file = event.target.files[0];
-    const data = await uplaodImageToCloudinary(file);
-
-    setPreviewURL(data.url);
-    setSelectedFile(data.url);
-    setFormData({ ...formData, photo: data.url });
+    imgsetLoading(true);
+    try{
+      const file = event.target.files[0];
+      const data = await uplaodImageToCloudinary(file);
+  
+      setPreviewURL(data.url);
+      setSelectedFile(data.url);
+      setFormData({ ...formData, photo: data.url });
+    }
+    catch(error){
+      console.log(error);
+      toast.error("Failed to upload image");
+    }
+    finally{
+      imgsetLoading(false);
+    }
   };
 
   const submitHandler = async (event) => {
@@ -146,7 +157,7 @@ const Signup = () => {
               <div className="mb-5 flex items-center gap-3">
                 {selectedFile && (
                   <figure className="w-[60px] h-[60px] rounded-full border-2 border-solid border-primaryColor flex items-center justify-center">
-                    <img src={avatar} alt="" className="w-full rounded-full" />
+                    <img src={formData.photo} alt="" className="w-full rounded-full" />
                   </figure>
                 )}
                 <div className="relative w-[130px] h-[50px]">
@@ -155,7 +166,14 @@ const Signup = () => {
                     className="absolute top-0 left-0 w-full h-full flex items-center px-[0.75rem] py-[0.375rem]
                  text-[15px] leading-6 overflow-hidden bg-[#0066ff46] text-headingColor font-semibold rounded-lg truncate cursor-pointer"
                   >
-                    Upload Photo
+                    {imgloading ? (
+                      <div className="flex items-center gap-2">
+                      <HashLoader size={20} color="black" />
+                      <span>Uploading...</span>
+                    </div>
+                    ):(
+                      "Upload Photo"
+                    )}
                     <input
                       type="file"
                       name="photo"

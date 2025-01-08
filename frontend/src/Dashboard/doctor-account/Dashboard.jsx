@@ -69,10 +69,10 @@ const Dashboard = () => {
                       <div className="flex items-center gap-4 mt-4">
                         <span className="flex items-center text-[#1A1A1A] text-[14px] font-semibold lg:text-[16px]">
                           <img src={startIcon} alt="" className="w-4 h-4 mr-1" />
-                          4.5
+                          {userData.data?.avergaeRating || 0}
                         </span>
                         <span className="text-[#1A1A1A] text-[14px] font-semibold lg:text-[16px]">
-                          (233)
+                          ({userData.data?.reviews.length}) Reviews
                         </span>
                       </div>
 
