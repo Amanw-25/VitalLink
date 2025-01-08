@@ -12,11 +12,11 @@ const Profile = ({ doctorData }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [imgloading, imgsetLoading] = useState(false);
+  const savedData =  JSON.parse(localStorage.getItem('user'));
 
   // Initialize form data from localStorage or default values
   const [formData, setFormData] = useState(() => {
-    const savedData = localStorage.getItem('user');
-    return savedData ? JSON.parse(savedData) : {
+    return savedData ? savedData: {
       name: '',
       email: '',
       password: '',
@@ -32,8 +32,7 @@ const Profile = ({ doctorData }) => {
       photo: '',
     };
   });
-  const doctorData1 = JSON.parse(localStorage.getItem('user'));
-  const doctorId = doctorData ? doctorData._id : null;
+  
   const navigate = useNavigate();
 
   // Save to localStorage whenever formData changes
@@ -144,7 +143,7 @@ const Profile = ({ doctorData }) => {
     setLoading(true);
 
     try {
-      const res = await fetch(`${BASE_URL}/doctors/${doctorData1._id}`, {
+      const res = await fetch(`${BASE_URL}/doctors/${savedData._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
