@@ -7,6 +7,7 @@ import Loading from '../../Loader/Loading';
 import startIcon from '../../assets/images/Star.png';
 import DoctorAbout from '../../pages/Doctors/DoctorAbout';
 import Profile from './Profile';
+import Appointment from './Appointment';
 
 const Dashboard = () => {
   const { data: userData, loading, error } = useFetchData(`${BASE_URL}/doctors/profile/me`);
@@ -89,7 +90,7 @@ const Dashboard = () => {
                     experience={userData.data?.experiences}
                   />
                 </div>}
-                {tab === "appointments" && <div>Appointments</div>}
+                {tab === "appointments" && <div><Appointment/></div>}
                 {tab === "settings" && <Profile />}
               </div>
 

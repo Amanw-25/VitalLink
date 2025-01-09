@@ -1,7 +1,7 @@
 import React from "react";
 import { formatDate } from "../../utils/formatDate";
 
-const DoctorAbout = ({ name, about, qualification, experience }) => {
+const DoctorAbout = ({ name, about, qualifications, experiences }) => {
 
   return (
     <div>
@@ -22,8 +22,8 @@ const DoctorAbout = ({ name, about, qualification, experience }) => {
           Education
         </h3>
         <ul className="pt-4 md:p-5">
-          {qualification && qualification.length > 0 ? (
-            qualification.map((q, index) => (
+          {qualifications && qualifications.length > 0 ? (
+            qualifications.map((q, index) => (
               <li
                 key={index}
                 className="flex flex-col sm:flex-row sm:justify-between sm:items-end md:gap-5 mb-[30px]"
@@ -53,8 +53,8 @@ const DoctorAbout = ({ name, about, qualification, experience }) => {
           Experience
         </h3>
         <ul className="grid sm:grid-cols-2 gap-[30px] pt-4 md:p-5">
-          {experience && experience.length > 0 ? (
-            experience.map((exp, index) => (
+          {experiences && experiences.length > 0 ? (
+            experiences.map((exp, index) => (
               <li key={index} className="p-4 rounded bg-[#efebe2]">
                 <span className="text-yellowColor text-[15px] leading-6 font-semibold">
                   {formatDate(exp.startDate)} - {formatDate(exp.endDate)}
