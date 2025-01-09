@@ -8,6 +8,7 @@ import authRoutes from "./Routes/auth.js";
 import userRoutes from "./Routes/user.js";
 import doctorRoutes from "./Routes/doctor.js";
 import reviewRoutes from "./Routes/review.js";
+import bookingRoutes from "./Routes/booking.js";
 
 dotenv.config();
 // const corsOptions = { origin: process.env.CORS_ORIGIN };
@@ -25,6 +26,7 @@ app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/doctors", doctorRoutes);
 app.use("/api/v1/review",reviewRoutes);
+app.use("/api/v1/booking",bookingRoutes);
 
 const PORT = process.env.PORT || 5000;
 

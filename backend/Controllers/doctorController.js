@@ -2,7 +2,6 @@ import Doctor from "../models/DoctorSchema.js"; // Import the Doctor model
 import Booking from "../models/BookingSchema.js";
 import bcrypt from "bcrypt";
 
-
 export const updateDoctor = async (req, res) => {
   // Rename the function to updateDoctor
   const id = req.params.id;
@@ -29,7 +28,7 @@ export const updateDoctor = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: "Failed to update!"+error.message,
+      message: "Failed to update!" + error.message,
       data: error.message,
     });
   }
@@ -100,9 +99,9 @@ export const getAllDoctor = async (req, res) => {
         ],
       }).select("-password");
     } else {
-      doctors = await Doctor.find({ isApproved: "approved" }).populate("reviews").select(
-        "-password"
-      ); // Use the Doctor model
+      doctors = await Doctor.find({ isApproved: "approved" })
+        .populate("reviews")
+        .select("-password"); // Use the Doctor model
     }
 
     res.status(200).json({
@@ -127,24 +126,25 @@ export const doctorProfile = async (req, res) => {
     if (!doctor) {
       return res.status(400).json({
         success: false,
-        message: "User not found"
+        message: "User not found",
       });
     }
 
     const { password, ...rest } = doctorId;
-    const appointments = await Booking.find({ doctor: doctorId }).populate("patient");
-
+    const appointments = await Booking.find({ doctor: doctorId }).populate(
+      "user"
+    );
 
     res.status(200).json({
       success: true,
       message: "Profile fetched successfully",
-      data: doctor, appointments
-
-    })
+      data: doctor,
+      appointments,
+    });
   } catch (error) {
     res.status(500).json({
       message: error.message,
-      error: "Internal server error"
+      error: "Internal server error",
     });
   }
-}
+};

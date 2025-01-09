@@ -1,7 +1,9 @@
 import React from 'react';
 import { formatDate } from '../../utils/formatDate';
 
-const Appointment = ({ appointments = [] }) => {
+const Appointment = ({ appointments }) => {
+
+  console.log(appointments);
   return (
     <table className="w-full border-collapse border border-gray-300">
       <thead className="bg-gray-100 border-b border-gray-300">
@@ -30,15 +32,13 @@ const Appointment = ({ appointments = [] }) => {
                 </div>
               </td>
               <td className="px-5 py-4">{item.user.gender}</td>
-              {/* <td className="px-5 py-4">{item.paymentStatus}</td> */}
               <td className='px-5 py-4'>
                 {item.isPaid ? (
                   <div className="flex items-center">
-                    <div className="h-2.5 w-2.5 rounded-full bg-green-500 mr-2">
-                      Paid
-
-                    </div>
+                    <div className="h-2.5 w-2.5 rounded-full bg-green-500 mr-3"></div>
+                    <span className="text--500 font-semibold text-sm">Paid</span>
                   </div>
+
                 ) : (
                   <div className="flex items-center">
                     <div className="h-2.5 w-2.5 rounded-full bg-Red-500 mr-2">
