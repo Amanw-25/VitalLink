@@ -93,7 +93,7 @@ const Footer = () => {
 
             <p className='text-[16px] leading-7 font-[400] text-textColor mt-4'>
               Copyright © {year} <br />
-               Developed By  <b>Mohamed Boukthir</b> <br />
+               Developed By  <b>Aman Wairagkar</b> <br />
                 All Right Reserved.
             </p>
 

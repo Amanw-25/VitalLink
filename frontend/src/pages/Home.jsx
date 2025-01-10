@@ -20,6 +20,7 @@ import ServiceList from "../components/Services/ServiceList";
 import DoctorList from "../components/Doctors/DoctorList";
 import FaqList from "../components/Faq/FaqList";
 import Testimonal from "../components/Testimonal/Testimonal";
+import {motion} from 'framer-motion';
 
 export const Home = () => {
   return (
@@ -273,7 +274,7 @@ export const Home = () => {
                       className="text-[10px] leading-3 lg:text-[16px] lg:leading-[22px] font-[700]
                  text-white"
                     >
-                      Mohamed Boukthir
+                      Aman Wairagkar
                     </h4>
                   </div>
                 </div>
