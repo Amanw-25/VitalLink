@@ -1,3 +1,4 @@
+import React from "react";
 import { Home } from "../pages/Home";
 import { Services } from "../pages/Services";
 import Login from "../pages/Login";
@@ -7,11 +8,18 @@ import { Doctors } from "../pages/Doctors/Doctors";
 import { DoctorDetails } from "../pages/Doctors/DoctorDetails";
 import MyAccount from "../Dashboard/user-account/MyAccount";
 import Dashboard from "../Dashboard/doctor-account/Dashboard";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
 import CheckoutSuccess from "../pages/Doctors/checkoutSession";
 
 const Routers = () => {
+  const location = useLocation();  // Get the current location of the router
+
+  // Use useEffect to scroll to top whenever the route changes
+  React.useEffect(() => {
+    window.scrollTo(0, 0); // Scroll to the top
+  }, [location]); // Dependency on location means it will trigger whenever the route changes
+
   return (
     <Routes>
       <Route path="/" element={<Home />} />

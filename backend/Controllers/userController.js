@@ -107,29 +107,28 @@ export const getUserProfile = async (req, res) => {
 
 export const getMyAppointments = async (req, res) => {
   try {
-    // step-1 Reterive appointments from booking 
-
+    // Step 1: Retrieve appointments from booking
     const booking = await Booking.find({ user: req.userId }).populate("doctor");
 
-    // extract doctor id from appointments booking
-    const doctorIds = booking.map((item) => item.doctor._id);
+    // Filter out bookings with missing or null doctor
+    const validBookings = booking.filter((item) => item.doctor);
 
+    // Extract doctor IDs
+    const doctorIds = validBookings.map((item) => item.doctor._id);
 
-    // retireve doctor using doctor id
-
-    const doctors = await Doctor.find({ _id: { $in: doctorIds }}).select('-password');
-
+    // Retrieve doctor details using doctor IDs
+    const doctors = await Doctor.find({ _id: { $in: doctorIds } }).select('-password');
 
     res.status(200).json({
       success: true,
       message: "Appointments fetched successfully",
-      data: booking,doctors
+      data: validBookings,
+      doctors,
     });
-  }
-  catch (error) {
+  } catch (error) {
     res.status(500).json({
       message: error.message,
-      error: "Internal server error"
+      error: "Internal server error",
     });
   }
-}
+};

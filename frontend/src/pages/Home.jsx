@@ -20,9 +20,31 @@ import ServiceList from "../components/Services/ServiceList";
 import DoctorList from "../components/Doctors/DoctorList";
 import FaqList from "../components/Faq/FaqList";
 import Testimonal from "../components/Testimonal/Testimonal";
-import {motion} from 'framer-motion';
-
+import { motion } from "framer-motion";
 export const Home = () => {
+  const fadeInSide = {
+    initial: { opacity: 0, x: -100 },
+    animate: { opacity: 1, x: 0 },
+    transition: { duration: 0.8, ease: "easeOut" },
+  };
+
+  const fadeInRightSide = {
+    initial: { opacity: 0, x: 150 },
+    animate: { opacity: 1, x: 0 },
+    transition: { duration: 0.8, ease: "easeOut" },
+  };
+
+  const fadeInUp = {
+    initial: { opacity: 0, y: 80 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.8, ease: "easeOut" },
+  };
+
+  const buttonHover = {
+    whileHover: { scale: 1.1 },
+    whileTap: { scale: 0.95 },
+  };
+
   return (
     <>
       {/* ========Hero-Section======== */}
@@ -31,12 +53,12 @@ export const Home = () => {
           <div className="container">
             <div className="flex flex-col lg:flex-row gap-[90px] items-center justify-between">
               <div>
-                <div className="lg:w-[570px]">
+                <motion.div className="lg:w-[570px]" {...fadeInSide}>
                   <h1
                     className="text-[36px] leading-[46px] text-headingColor font-[800] 
                 md:text-[60px] md:leading-[70px]"
                   >
-                    Take care of your body , its the only place you have to
+                    Take care of your body, it's the only place you have to
                     live.
                   </h1>
                   <p className="text__para">
@@ -47,12 +69,14 @@ export const Home = () => {
                     empowers individuals to prioritize their well-being and seek
                     expert healthcare advice with ease and convenience.
                   </p>
-                  <button className="btn">Request An Appointment</button>
-                </div>
+                  <motion.button className="btn" {...buttonHover}>
+                    Request An Appointment
+                  </motion.button>
+                </motion.div>
 
-                <div
-                  className="mt-[30px] lg:mt-[70px] flex flex-col lg:flex-row lg:items-center gap-5 
-                 lg:gap-[30px]"
+                <motion.div
+                  className="mt-[30px] lg:mt-[70px] flex flex-col lg:flex-row lg:items-center gap-5 lg:gap-[30px]"
+                  {...fadeInUp}
                 >
                   <div>
                     <h2
@@ -86,18 +110,36 @@ export const Home = () => {
                     <span className="w-[100px] h-2 bg-irisBlueColor rounded-full block mt-[-14px]"></span>
                     <p className="text__para">Patient Satisfaction</p>
                   </div>
-                </div>
+                </motion.div>
               </div>
 
-              <div className="flex gap-[30px] justify-end">
+              <motion.div
+                className="flex gap-[30px] justify-end"
+                {...fadeInRightSide}
+              >
                 <div>
-                  <img className="w-full" src={heroImg01} alt="" />
+                  <motion.img
+                    className="w-full"
+                    src={heroImg01}
+                    alt=""
+                    {...buttonHover}
+                  />
                 </div>
                 <div className="mt-[30px]">
-                  <img src={heroImg02} alt="" className="w-full mb-[30px]" />
-                  <img src={heroImg03} alt="" className="w-full" />
+                  <motion.img
+                    src={heroImg02}
+                    alt=""
+                    className="w-full mb-[30px]"
+                    {...buttonHover}
+                  />
+                  <motion.img
+                    src={heroImg03}
+                    alt=""
+                    className="w-full"
+                    {...buttonHover}
+                  />
                 </div>
-              </div>
+              </motion.div>
             </div>
           </div>
         </section>
@@ -105,7 +147,13 @@ export const Home = () => {
         {/* How It Works Section */}
 
         <section>
-          <div className="container">
+          <motion.div
+            className="container"
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true, amount: 0.5 }}
+          >
             <div className="lg:w-[470px] mx-auto">
               <h2 className="heading text-center">
                 Providing The Best Medical Services
@@ -116,15 +164,17 @@ export const Home = () => {
               </p>
             </div>
 
-            <div
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-[30px] 
-          mt-[30px] lg:mt-[55px]"
-            >
-              <div className="py-[30px] px-5">
+            {/* Grid container */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-[30px] mt-[30px] lg:mt-[55px]">
+              {/* Section 1: Find a Doctor */}
+              <motion.div
+                className="py-[30px] px-5"
+                variants={fadeInUp}
+                transition={{ duration: 0.8, delay: 0.3 }} 
+              >
                 <div className="flex items-center justify-center">
-                  <img src={icon01} alt="" />
+                  <img src={icon01} alt="Find A Doctor" />
                 </div>
-
                 <div className="mt-[30px]">
                   <h2 className="text-[26px] leading-9 text-headingColor font-[700] text-center">
                     Find A Doctor
@@ -133,7 +183,6 @@ export const Home = () => {
                     World-Class Care For Everyone. Our Health System Offers
                     Unmatched, Expert Health Care. From The Lab To The Clinic.
                   </p>
-
                   <Link
                     to="/doctors"
                     className="w-[44px] h-[44px] rounded-full border border-solid border-[#181A1E] mt-[30px] mx-auto flex items-center group
@@ -142,13 +191,17 @@ export const Home = () => {
                     <BsArrowRight className="group-hover:text-white w-6 h-5" />
                   </Link>
                 </div>
-              </div>
+              </motion.div>
 
-              <div className="py-[30px] px-5">
+              {/* Section 2: Find A Location */}
+              <motion.div
+                className="py-[30px] px-5"
+                variants={fadeInUp}
+                transition={{ duration: 0.8, delay: 0.6 }} // Delay to animate after first one
+              >
                 <div className="flex items-center justify-center">
-                  <img src={icon02} alt="" />
+                  <img src={icon02} alt="Find A Location" />
                 </div>
-
                 <div className="mt-[30px]">
                   <h2 className="text-[26px] leading-9 text-headingColor font-[700] text-center">
                     Find A Location
@@ -157,7 +210,6 @@ export const Home = () => {
                     World-Class Care For Everyone. Our Health System Offers
                     Unmatched, Expert Health Care. From The Lab To The Clinic.
                   </p>
-
                   <Link
                     to="/doctors"
                     className="w-[44px] h-[44px] rounded-full border border-solid border-[#181A1E] mt-[30px] mx-auto flex items-center group
@@ -166,13 +218,17 @@ export const Home = () => {
                     <BsArrowRight className="group-hover:text-white w-6 h-5" />
                   </Link>
                 </div>
-              </div>
+              </motion.div>
 
-              <div className="py-[30px] px-5">
+              {/* Section 3: Book Appointment */}
+              <motion.div
+                className="py-[30px] px-5"
+                variants={fadeInUp}
+                transition={{ duration: 0.8, delay: 0.9 }} // Delay to animate after the second one
+              >
                 <div className="flex items-center justify-center">
-                  <img src={icon03} alt="" />
+                  <img src={icon03} alt="Book Appointment" />
                 </div>
-
                 <div className="mt-[30px]">
                   <h2 className="text-[26px] leading-9 text-headingColor font-[700] text-center">
                     Book Appointment
@@ -181,7 +237,6 @@ export const Home = () => {
                     World-Class Care For Everyone. Our Health System Offers
                     Unmatched, Expert Health Care. From The Lab To The Clinic.
                   </p>
-
                   <Link
                     to="/doctors"
                     className="w-[44px] h-[44px] rounded-full border border-solid border-[#181A1E] mt-[30px] mx-auto flex items-center group
@@ -190,9 +245,9 @@ export const Home = () => {
                     <BsArrowRight className="group-hover:text-white w-6 h-5" />
                   </Link>
                 </div>
-              </div>
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
         </section>
 
         {/* About Section */}
@@ -299,7 +354,6 @@ export const Home = () => {
           </div>
         </section>
 
-
         {/* ========= FAQ SECTION ======== */}
         <section>
           <div className="container">
@@ -318,11 +372,10 @@ export const Home = () => {
           </div>
         </section>
 
-
         {/* =======Testimonal=========*/}
-          
+
         <section>
-        <div className="container">
+          <div className="container">
             <div className="xl:w-[470px] mx-auto">
               <h2 className="heading text-center">What our Patients Says</h2>
               <p className="text__para text-center">
@@ -330,11 +383,9 @@ export const Home = () => {
                 Unmatched, Expert Health Care.
               </p>
             </div>
-
           </div>
 
-          <Testimonal/>
-
+          <Testimonal />
         </section>
       </>
     </>

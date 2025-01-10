@@ -1,19 +1,48 @@
 import React, { useState } from 'react';
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
+import { motion } from 'framer-motion';
 
-const FaqItem = ({ item }) => {
-  const [isOpen, setIsOpen] = useState(false);
+const FaqItem = ({ item, index }) => {
+  const [isOpen, setIsOpen] = useState(false); // Independent state per item
+
+  // Toggle state for each FAQ item
   const toggleAccordion = () => {
     setIsOpen(!isOpen);
   };
 
+  // Animation for each FAQ item
+  const itemVariants = {
+    initial: { opacity: 0, y: 20 },
+    animate: {
+      opacity: 1,
+      y: 0,
+      transition: { delay: index * 0.2, duration: 0.8, ease: 'easeOut' },
+    },
+  };
+
+  // Animation for the content when it's opened
+  const contentVariants = {
+    initial: { opacity: 0, height: 0 },
+    animate: {
+      opacity: 1,
+      height: 'auto',
+      transition: { duration: 0.5, ease: 'easeOut' },
+    },
+  };
+
   return (
-    <div className='p-3 lg:p-5 rounded-[12px] border border-solid border-[#E0E0E0] mb-5 cursor-pointer'>
+    <motion.div
+      className="p-3 lg:p-5 rounded-[12px] border border-solid border-[#E0E0E0] mb-5 cursor-pointer"
+      variants={itemVariants}
+      initial="initial"
+      whileInView="animate"
+      viewport={{ once: true, amount: 0.5 }}
+    >
       <div
-        className='flex items-center justify-between gap-5 '
+        className="flex items-center justify-between gap-5"
         onClick={toggleAccordion}
       >
-        <h4 className='text-[16px] leading-[30px] lg:text-[18px] lg:leading-[30px] text-headingColor font-[700]'>
+        <h4 className="text-[16px] leading-[30px] lg:text-[18px] lg:leading-[30px] text-headingColor font-[700]">
           {item.question}
         </h4>
 
@@ -26,14 +55,20 @@ const FaqItem = ({ item }) => {
         </div>
       </div>
 
+      {/* Animate the content for the clicked FAQ */}
       {isOpen && (
-        <div className='mt-4'>
-          <p className='text-[14px] leading-[24px] lg:text-[16px] lg:leading-[30px] text-textColor'>
-          {item.content}
-          </p>
-        </div>
+              <motion.div
+              className="mt-4"
+              variants={contentVariants}
+              initial="initial"
+              animate={isOpen ? 'animate' : 'initial'}
+            >
+              <p className="text-[14px] leading-[24px] lg:text-[16px] lg:leading-[30px] text-textColor">
+                {item.content}
+              </p>
+            </motion.div>
       )}
-    </div>
+    </motion.div>
   );
 };
 

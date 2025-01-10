@@ -1,12 +1,24 @@
-/* eslint-disable react/prop-types */
 import { BsArrowRight } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 function ServiceCard({ item, index }) {
   const { name, desc, bgColor, textColor } = item;
 
+  const fadeInUp = {
+    initial: { opacity: 0, y: 100 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.8, ease: "easeOut", delay: index * 0.2 },
+  };
+
   return (
-    <div className="py-[30px] px-3 lg:px-5">
+    <motion.div
+      className="py-[30px] px-3 lg:px-5"
+      variants={fadeInUp}
+      initial="initial"
+      whileInView="animate"
+      viewport={{ once: true, amount: 0.5 }}
+    >
       <h2 className="text-[26px] leading-9 text-headingColor font-[700]">
         {name}
       </h2>
@@ -35,7 +47,7 @@ function ServiceCard({ item, index }) {
           {index + 1}
         </span>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
