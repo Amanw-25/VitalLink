@@ -12,10 +12,7 @@ const MyAccount = () => {
   const { dispatch } = useContext(AuthContext);
   const [tab, setTab] = useState('bookings'); // Correct initialization
 
-  const { data: userData, loading, error } = userGetProfile(`${BASE_URL}/user/profile/me`);
-
-  console.log(userData);
-  
+  const { data: userData, loading, error } = userGetProfile(`${BASE_URL}/user/profile/me`);  
 
   const handleLogout = () => {
     dispatch({ type: 'LOGOUT' });

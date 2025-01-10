@@ -40,6 +40,7 @@ function About() {
               initial="initial"
               whileInView="animate"
               viewport={{ once: true, amount: 0.5 }}
+              className="h-[85%] w-[] lg:ml-[-10%] rounded-3xl"
             />
             <div className="absolute z-20 bottom-4 w-[200px] md:w-[300px] right-[-30%] md:right-[-7%] lg:right-[22%]">
               <motion.img
@@ -53,7 +54,7 @@ function About() {
             </div>
           </div>
 
-          <div className="w-full lg:w-1/2 xl:w-[670px] order-1 lg:order-2">
+          <div className="w-full lg:w-1/2 xl:w-[670px] order-1 lg:order-2 mt-[100px]">
             <h2 className="heading ">Proud To Be One Of The Nations Best</h2>
             <p className="text__para  mt-[18px]">
               Welcome To Our Doctor s Appointment App! Our Goal Is To Provide
@@ -69,6 +70,8 @@ function About() {
               With Healthcare Professionals. Experience Hassle-Free Healthcare
               at Your Fingertips!
             </p>
+
+
 
             <Link to="/doctors">
               <motion.button className="btn" {...buttonHover}>

@@ -8,7 +8,6 @@ import DoctorCard from '../../components/Doctors/DoctorCard'
 
 const MyBookings = () => {
   const { data, loading, error } = useFetchData(`${BASE_URL}/user/appointments/my-appointments`);
-  console.log(error);
   const appointments = data ? data.data : [];
 
   return (

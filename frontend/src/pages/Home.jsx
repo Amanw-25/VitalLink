@@ -113,142 +113,144 @@ export const Home = () => {
                 </motion.div>
               </div>
 
-              <motion.div
-                className="flex gap-[30px] justify-end"
-                {...fadeInRightSide}
-              >
-                <div>
-                  <motion.img
-                    className="w-full"
-                    src={heroImg01}
-                    alt=""
-                    {...buttonHover}
-                  />
-                </div>
-                <div className="mt-[30px]">
-                  <motion.img
-                    src={heroImg02}
-                    alt=""
-                    className="w-full mb-[30px]"
-                    {...buttonHover}
-                  />
-                  <motion.img
-                    src={heroImg03}
-                    alt=""
-                    className="w-full"
-                    {...buttonHover}
-                  />
-                </div>
-              </motion.div>
+                <motion.div
+                  className="flex gap-[30px] justify-end"
+                  {...fadeInRightSide}
+                >
+                  <div>
+                    <motion.img
+                      className="xl:w-[370px] h-[625px] rounded-full sm:w-[300px]"
+
+                      src={heroImg01}
+                      alt=""
+                      {...buttonHover}
+                    />
+                  </div>
+                  <div className="mt-[30px] hidden md:block">
+                    <motion.img
+                      src={heroImg02}
+                      alt=""
+                      className="w-[270px] h-[270px] rounded-[80px] mb-[30px]"
+                      {...buttonHover}
+                    />
+                    <motion.img
+                      src={heroImg03}
+                      alt=""
+                      className="w-[270px] h-[270px] rounded-[80px]"
+                      {...buttonHover}
+                    />
+                  </div>
+                </motion.div>
             </div>
           </div>
         </section>
 
         {/* How It Works Section */}
 
-        <section>
-          <motion.div
-            className="container"
-            variants={fadeInUp}
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true, amount: 0.5 }}
+        <section className="py-16 px-4">
+  <motion.div
+    className="container mx-auto"
+    variants={fadeInUp}
+    initial="initial"
+    whileInView="animate"
+    viewport={{ once: true, amount: 0.1 }}
+  >
+    <div className="lg:w-[470px] mx-auto">
+      <h2 className="heading text-center">
+        Providing The Best Medical Services
+      </h2>
+      <p className="text__para text-center">
+        World-Class Care For Everyone. Our Health System Offers
+        Unmatched, Expert Health Care.
+      </p>
+    </div>
+
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-[30px] lg:mt-[55px]">
+      
+      <motion.div
+        className="py-[30px] px-5 w-full"
+        variants={fadeInUp}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 0.5, delay: 0.3 }}
+      >
+        <div className="flex items-center justify-center">
+          <img src={icon01} alt="Find A Doctor" />
+        </div>
+        <div className="mt-[30px]">
+          <h2 className="text-[26px] leading-9 text-headingColor font-[700] text-center">
+            Find A Doctor
+          </h2>
+          <p className="text-[16px] leading-7 text-textColor font-[400] mt-4 text-center">
+            World-Class Care For Everyone. Our Health System Offers
+            Unmatched, Expert Health Care. From The Lab To The Clinic.
+          </p>
+          <Link
+            to="/doctors"
+            className="w-[44px] h-[44px] rounded-full border border-solid border-[#181A1E] mt-[30px] mx-auto flex items-center group
+            hover:bg-primaryColor hover:border-none justify-center"
           >
-            <div className="lg:w-[470px] mx-auto">
-              <h2 className="heading text-center">
-                Providing The Best Medical Services
-              </h2>
-              <p className="text__para text-center">
-                World-Class Care For Everyone. Our health System Offers
-                Unmatched, Expert Health Care.
-              </p>
-            </div>
+            <BsArrowRight className="group-hover:text-white w-6 h-5" />
+          </Link>
+        </div>
+      </motion.div>
 
-            {/* Grid container */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-[30px] mt-[30px] lg:mt-[55px]">
-              {/* Section 1: Find a Doctor */}
-              <motion.div
-                className="py-[30px] px-5"
-                variants={fadeInUp}
-                transition={{ duration: 0.8, delay: 0.3 }} 
-              >
-                <div className="flex items-center justify-center">
-                  <img src={icon01} alt="Find A Doctor" />
-                </div>
-                <div className="mt-[30px]">
-                  <h2 className="text-[26px] leading-9 text-headingColor font-[700] text-center">
-                    Find A Doctor
-                  </h2>
-                  <p className="text-[16px] leading-7 text-textColor font-[400] mt-4 text-center">
-                    World-Class Care For Everyone. Our Health System Offers
-                    Unmatched, Expert Health Care. From The Lab To The Clinic.
-                  </p>
-                  <Link
-                    to="/doctors"
-                    className="w-[44px] h-[44px] rounded-full border border-solid border-[#181A1E] mt-[30px] mx-auto flex items-center group
-                   hover:bg-primaryColor hover:border-none justify-center"
-                  >
-                    <BsArrowRight className="group-hover:text-white w-6 h-5" />
-                  </Link>
-                </div>
-              </motion.div>
+      <motion.div
+        className="py-[30px] px-5 w-full"
+        variants={fadeInUp}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 0.5, delay: 0.6 }}
+      >
+        <div className="flex items-center justify-center">
+          <img src={icon02} alt="Find A Location" />
+        </div>
+        <div className="mt-[30px]">
+          <h2 className="text-[26px] leading-9 text-headingColor font-[700] text-center">
+            Find A Location
+          </h2>
+          <p className="text-[16px] leading-7 text-textColor font-[400] mt-4 text-center">
+            World-Class Care For Everyone. Our Health System Offers
+            Unmatched, Expert Health Care. From The Lab To The Clinic.
+          </p>
+          <Link
+            to="/doctors"
+            className="w-[44px] h-[44px] rounded-full border border-solid border-[#181A1E] mt-[30px] mx-auto flex items-center group
+            hover:bg-primaryColor hover:border-none justify-center"
+          >
+            <BsArrowRight className="group-hover:text-white w-6 h-5" />
+          </Link>
+        </div>
+      </motion.div>
 
-              {/* Section 2: Find A Location */}
-              <motion.div
-                className="py-[30px] px-5"
-                variants={fadeInUp}
-                transition={{ duration: 0.8, delay: 0.6 }} // Delay to animate after first one
-              >
-                <div className="flex items-center justify-center">
-                  <img src={icon02} alt="Find A Location" />
-                </div>
-                <div className="mt-[30px]">
-                  <h2 className="text-[26px] leading-9 text-headingColor font-[700] text-center">
-                    Find A Location
-                  </h2>
-                  <p className="text-[16px] leading-7 text-textColor font-[400] mt-4 text-center">
-                    World-Class Care For Everyone. Our Health System Offers
-                    Unmatched, Expert Health Care. From The Lab To The Clinic.
-                  </p>
-                  <Link
-                    to="/doctors"
-                    className="w-[44px] h-[44px] rounded-full border border-solid border-[#181A1E] mt-[30px] mx-auto flex items-center group
-                   hover:bg-primaryColor hover:border-none justify-center"
-                  >
-                    <BsArrowRight className="group-hover:text-white w-6 h-5" />
-                  </Link>
-                </div>
-              </motion.div>
+      <motion.div
+        className="py-[30px] px-5 w-full"
+        variants={fadeInUp}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 0.5, delay: 0.9 }}
+      >
+        <div className="flex items-center justify-center">
+          <img src={icon03} alt="Book Appointment" />
+        </div>
+        <div className="mt-[30px]">
+          <h2 className="text-[26px] leading-9 text-headingColor font-[700] text-center">
+            Book Appointment
+          </h2>
+          <p className="text-[16px] leading-7 text-textColor font-[400] mt-4 text-center">
+            World-Class Care For Everyone. Our Health System Offers
+            Unmatched, Expert Health Care. From The Lab To The Clinic.
+          </p>
+          <Link
+            to="/doctors"
+            className="w-[44px] h-[44px] rounded-full border border-solid border-[#181A1E] mt-[30px] mx-auto flex items-center group
+            hover:bg-primaryColor hover:border-none justify-center"
+          >
+            <BsArrowRight className="group-hover:text-white w-6 h-5" />
+          </Link>
+        </div>
+      </motion.div>
+    </div>
+  </motion.div>
+</section>
 
-              {/* Section 3: Book Appointment */}
-              <motion.div
-                className="py-[30px] px-5"
-                variants={fadeInUp}
-                transition={{ duration: 0.8, delay: 0.9 }} // Delay to animate after the second one
-              >
-                <div className="flex items-center justify-center">
-                  <img src={icon03} alt="Book Appointment" />
-                </div>
-                <div className="mt-[30px]">
-                  <h2 className="text-[26px] leading-9 text-headingColor font-[700] text-center">
-                    Book Appointment
-                  </h2>
-                  <p className="text-[16px] leading-7 text-textColor font-[400] mt-4 text-center">
-                    World-Class Care For Everyone. Our Health System Offers
-                    Unmatched, Expert Health Care. From The Lab To The Clinic.
-                  </p>
-                  <Link
-                    to="/doctors"
-                    className="w-[44px] h-[44px] rounded-full border border-solid border-[#181A1E] mt-[30px] mx-auto flex items-center group
-                   hover:bg-primaryColor hover:border-none justify-center"
-                  >
-                    <BsArrowRight className="group-hover:text-white w-6 h-5" />
-                  </Link>
-                </div>
-              </motion.div>
-            </div>
-          </motion.div>
-        </section>
 
         {/* About Section */}
         <About />
@@ -296,10 +298,10 @@ export const Home = () => {
               </div>
 
               <div className="relative z-10 xl:w-[770px] flex justify-end mt-[50px] lg:mt-0">
-                <img src={featureImg} className="w-3/4" alt="" />
+                <img src={featureImg} className="w-3/4 rounded-3xl" alt="" />
 
                 <div
-                  className="w-[150px] lg:w-[248px] bg-[#2D224C] absolute bottom-[50px] left-0 md:bottom-[100px] 
+                  className="w-[150px] lg:w-[248px] bg-[#636363] absolute bottom-[50px] left-0 md:bottom-[100px] 
               md:left-5 z-20 p-2 pb-3 lg:pt-4 lg:px-4 lg:pb-[26px] rounded-[10px]"
                 >
                   <div className="flex items-center justify-between">
@@ -359,7 +361,7 @@ export const Home = () => {
           <div className="container">
             <div className="flex justify-between gap-[50px] lg:gap-0">
               <div className="w-1/2 hidden md:block">
-                <img src={faqImg} alt="" />
+                <img src={faqImg} alt="" className="h-[85%] w-[75%]"/>
               </div>
 
               <div className="w-full md:w-1/2">
