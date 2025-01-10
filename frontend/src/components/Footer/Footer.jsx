@@ -18,7 +18,7 @@ const socialLinks = [
   },
 
   {
-    path: "https://www.instagram.com/hamaboukthir.exe/",
+    path: "https://www.instagram.com/Amanw_25",
     icon: <AiOutlineInstagram className='group-hover:text-white w-4 h-5'/>,
   },
 ];
