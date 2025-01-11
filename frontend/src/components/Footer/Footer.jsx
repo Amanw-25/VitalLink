@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { Link } from 'react-router-dom'
-import logo from '../../assets/images/logo.png'
+import logo1 from '../../assets/images/logo.png'
 import {RiLinkedinFill} from 'react-icons/ri'
 import { AiFillGithub, AiOutlineInstagram} from 'react-icons/ai'
 
@@ -89,7 +89,7 @@ const Footer = () => {
       <div className="container">
         <div className='flex justify-between flex-col md:flex-row flew-wrap gap-[30px] '>
           <div>
-            <img src={logo} alt="" />
+            <img src={logo1} className="w-50 h-[130px] ml-[-39px] mb-[-50px]  "alt="" />
 
             <p className='text-[16px] leading-7 font-[400] text-textColor mt-4'>
               Copyright © {year} <br />
