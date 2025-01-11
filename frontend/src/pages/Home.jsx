@@ -69,9 +69,11 @@ export const Home = () => {
                     empowers individuals to prioritize their well-being and seek
                     expert healthcare advice with ease and convenience.
                   </p>
-                  <motion.button className="btn" {...buttonHover}>
+                  <Link to="/doctors">
+                    <motion.button className="btn" {...buttonHover}>
                     Request An Appointment
-                  </motion.button>
+                    </motion.button>
+                  </Link>
                 </motion.div>
 
                 <motion.div
